@@ -19,7 +19,6 @@ public record Assignment(int startId, int endId) {
     }
 
     public boolean overlaps(Assignment other) {
-        // The intersection is not empty
-        return Math.max(startId, other.startId()) <= Math.min(endId, other.endId());
+        return startId <= other.endId() && endId >= other.startId();
     }
 }
