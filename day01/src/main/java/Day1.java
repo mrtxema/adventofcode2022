@@ -21,7 +21,7 @@ public class Day1 {
 
     private List<ElfInventory> readInputFile(String fileName) {
         try {
-            List<String> lines = IOUtils.readLines(getClass().getResource(fileName));
+            List<String> lines = IOUtils.readTrimmedLines(getClass().getResource(fileName));
             return new InventoryParser().parseInventories(lines);
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);

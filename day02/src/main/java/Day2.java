@@ -23,7 +23,7 @@ public class Day2 {
 
     private List<Round> readInputFile(String fileName, Function<String, Round> roundParser) {
         try {
-            return IOUtils.readLines(getClass().getResource(fileName)).stream()
+            return IOUtils.readTrimmedLines(getClass().getResource(fileName)).stream()
                     .filter(line -> !line.isEmpty())
                     .map(roundParser)
                     .toList();

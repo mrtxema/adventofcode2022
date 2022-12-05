@@ -22,7 +22,7 @@ public class Day4 {
 
     private List<AssignmentPair> readInputFile(String fileName) {
         try {
-            return IOUtils.readLines(getClass().getResource(fileName)).stream()
+            return IOUtils.readTrimmedLines(getClass().getResource(fileName)).stream()
                     .filter(line -> !line.isEmpty())
                     .map(AssignmentPair::parse)
                     .toList();

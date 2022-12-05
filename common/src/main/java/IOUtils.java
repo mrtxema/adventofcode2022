@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public final class IOUtils {
@@ -13,8 +14,16 @@ public final class IOUtils {
     }
 
     public static List<String> readLines(URL resource) throws IOException {
+        return readLines(resource, Function.identity());
+    }
+
+    public static List<String> readTrimmedLines(URL resource) throws IOException {
+        return readLines(resource, String::trim);
+    }
+
+    private static List<String> readLines(URL resource, Function<String, String> lineTransformer) throws IOException {
         try (Stream<String> lines = Files.lines(getFilePath(resource))) {
-            return lines.map(String::trim).toList();
+            return lines.map(lineTransformer).toList();
         }
     }
 
