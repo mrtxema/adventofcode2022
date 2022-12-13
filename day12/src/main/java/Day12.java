@@ -15,7 +15,7 @@ public class Day12 {
 
     public void run() {
         Heightmap heightmap = readInputFile(INPUT_FILE_NAME);
-        RoutePlanner routePlanner = new RoutePlanner(heightmap);
+        DijkstraRoutePlanner routePlanner = new DijkstraRoutePlanner(heightmap);
         routePlanner.calculateDistances();
         System.out.printf("Part 1. The shortest route has %d steps%n", routePlanner.findShortestRouteLengthFromStart());
         System.out.printf("Part 2. The shortest route from any low position has %d steps%n", routePlanner.findShortestRouteLengthFromAny());

@@ -1,13 +1,13 @@
 import java.util.Arrays;
 import java.util.List;
 
-public class RoutePlanner {
+public class DijkstraRoutePlanner {
     private final Heightmap heightmap;
     private final GridDistanceCalculationQueue queue;
 
-    public RoutePlanner(Heightmap heightmap) {
+    public DijkstraRoutePlanner(Heightmap heightmap) {
         this.heightmap = heightmap;
-        this.queue = new GridDistanceCalculationQueue(heightmap.width(), heightmap.height());
+        this.queue = new GridDistanceCalculationQueue();
     }
 
     public void calculateDistances() {

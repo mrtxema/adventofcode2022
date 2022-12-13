@@ -1,20 +1,25 @@
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeSet;
-import java.util.stream.IntStream;
 
 public class GridDistanceCalculationQueue {
-    private final int width;
-    private final int[] distances;
+    private final Map<Position, Integer> distances;
     private final TreeSet<PositionDistance> queue;
 
-    public GridDistanceCalculationQueue(int width, int height) {
-        this.width = width;
-        this.distances = IntStream.range(0, height * width).map(i -> Integer.MAX_VALUE).toArray();
-        this.queue = new TreeSet<>(Comparator.comparing(PositionDistance::distance).thenComparing(pd -> index(pd.position())));
+    public GridDistanceCalculationQueue() {
+        this.distances = new HashMap<>();
+        this.queue = new TreeSet<>(comparator());
+    }
+
+    private static Comparator<PositionDistance> comparator() {
+        return Comparator.comparing(PositionDistance::distance)
+                .thenComparing(pd -> pd.position().x())
+                .thenComparing(pd -> pd.position().y());
     }
 
     public void add(PositionDistance positionDistance) {
-        distances[index(positionDistance.position())] = positionDistance.distance();
+        distances.put(positionDistance.position(), positionDistance.distance());
         queue.add(positionDistance);
     }
 
@@ -23,16 +28,10 @@ public class GridDistanceCalculationQueue {
     }
 
     public PositionDistance pop() {
-        PositionDistance current = queue.first();
-        queue.remove(current);
-        return current;
+        return queue.pollFirst();
     }
 
     public int getDistance(Position position) {
-        return distances[index(position)];
-    }
-
-    private int index(Position position) {
-        return position.y() * width + position.x();
+        return distances.getOrDefault(position, Integer.MAX_VALUE);
     }
 }
