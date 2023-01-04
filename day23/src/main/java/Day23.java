@@ -15,8 +15,9 @@ public class Day23 {
 
     public void run() {
         ElvesMap map = new ElvesMapParser().parse(readInputFile(INPUT_FILE_NAME));
-        System.out.println("Part 1. Empty tiles: " + new ElvesMapEvaluator(map).evaluate(10).countEmptyTiles());
-        System.out.println("Part 2. Rounds: " + new ElvesMapEvaluator(map).countRoundsUntilNoMoves());
+        ElvesMapEvaluator evaluator = new ElvesMapEvaluator(map);
+        System.out.println("Part 1. Empty tiles: " + evaluator.evaluate(10).countEmptyTiles());
+        System.out.println("Part 2. Rounds: " + evaluator.countRoundsUntilNoMoves());
     }
 
     private List<String> readInputFile(String fileName) {
